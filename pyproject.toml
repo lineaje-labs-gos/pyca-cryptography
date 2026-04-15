@@ -1,9 +1,7 @@
 [build-system]
 requires = [
-    # First version of setuptools to support pyproject.toml configuration
     "setuptools>=61.0.0",
     "wheel",
-    # Must be kept in sync with `project.dependencies`
     "cffi>=1.12; platform_python_implementation != 'PyPy'",
     "setuptools-rust>=0.11.4",
 ]
@@ -11,13 +9,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cryptography"
-version = "41.0.7"
-authors = [
-    {name = "The Python Cryptographic Authority and individual contributors", email = "cryptography-dev@python.org"}
-]
+version = "41.0.7+lineaje.1"
 description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
 readme = "README.rst"
-license = {text = "Apache-2.0 OR BSD-3-Clause"}
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
@@ -28,7 +22,7 @@ classifiers = [
     "Operating System :: POSIX",
     "Operating System :: POSIX :: BSD",
     "Operating System :: POSIX :: Linux",
-    'Operating System :: Microsoft :: Windows',
+    "Operating System :: Microsoft :: Windows",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
@@ -43,9 +37,18 @@ classifiers = [
 ]
 requires-python = ">=3.7"
 dependencies = [
-    # Must be kept in sync with `build-system.requires`
     "cffi >=1.12",
 ]
+maintainers = [
+    { name = "Lineaje DepFixer", email = "221268890+Lineaje-DepFixer@users.noreply.github.com" },
+]
+
+[[project.authors]]
+name = "The Python Cryptographic Authority and individual contributors"
+email = "cryptography-dev@python.org"
+
+[project.license]
+text = "Apache-2.0 OR BSD-3-Clause"
 
 [project.urls]
 homepage = "https://github.com/pyca/cryptography"
@@ -53,20 +56,17 @@ documentation = "https://cryptography.io/"
 source = "https://github.com/pyca/cryptography/"
 issues = "https://github.com/pyca/cryptography/issues"
 changelog = "https://cryptography.io/en/latest/changelog/"
-
-[tool.setuptools]
-zip-safe = false
-package-dir = {"" = "src"}
-
-[tool.setuptools.packages.find]
-where = ["src"]
-include = ["cryptography*"]
+Homepage = "https://github.com/lineaje-labs-gos/pyca-cryptography"
+Repository = "https://github.com/lineaje-labs-gos/pyca-cryptography"
+Tracker = "https://github.com/lineaje-labs-gos/pyca-cryptography/issues"
 
 [project.optional-dependencies]
-ssh = ["bcrypt >=3.1.5"]
-
-# All the following are used for our own testing.
-nox = ["nox"]
+ssh = [
+    "bcrypt >=3.1.5",
+]
+nox = [
+    "nox",
+]
 test = [
     "pytest >=6.2.0",
     "pytest-benchmark",
@@ -74,15 +74,47 @@ test = [
     "pytest-xdist",
     "pretend",
 ]
-test-randomorder = ["pytest-randomly"]
-docs = ["sphinx >=5.3.0", "sphinx-rtd-theme >=1.1.1"]
-docstest =  ["pyenchant >=1.6.11", "twine >=1.12.0", "sphinxcontrib-spelling >=4.0.1"]
-sdist = ["build"]
-pep8test = ["black", "ruff", "mypy", "check-sdist"]
+test-randomorder = [
+    "pytest-randomly",
+]
+docs = [
+    "sphinx >=5.3.0",
+    "sphinx-rtd-theme >=1.1.1",
+]
+docstest = [
+    "pyenchant >=1.6.11",
+    "twine >=1.12.0",
+    "sphinxcontrib-spelling >=4.0.1",
+]
+sdist = [
+    "build",
+]
+pep8test = [
+    "black",
+    "ruff",
+    "mypy",
+    "check-sdist",
+]
+
+[tool.setuptools]
+zip-safe = false
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.packages.find]
+where = [
+    "src",
+]
+include = [
+    "cryptography*",
+]
 
 [tool.black]
 line-length = 79
-target-version = ["py37"]
+target-version = [
+    "py37",
+]
 
 [tool.pytest.ini_options]
 addopts = "-r s --capture=no --strict-markers --benchmark-disable"
@@ -103,7 +135,7 @@ strict_equality = true
 
 [[tool.mypy.overrides]]
 module = [
-    "pretend"
+    "pretend",
 ]
 ignore_missing_imports = true
 
@@ -117,14 +149,14 @@ source = [
 
 [tool.coverage.paths]
 source = [
-   "src/cryptography",
-   "*.nox/*/lib*/python*/site-packages/cryptography",
-   "*.nox\\*\\Lib\\site-packages\\cryptography",
-   "*.nox/pypy/site-packages/cryptography",
+    "src/cryptography",
+    "*.nox/*/lib*/python*/site-packages/cryptography",
+    "*.nox\\*\\Lib\\site-packages\\cryptography",
+    "*.nox/pypy/site-packages/cryptography",
 ]
-tests =[
-   "tests/",
-   "*tests\\",
+tests = [
+    "tests/",
+    "*tests\\",
 ]
 
 [tool.coverage.report]
@@ -135,14 +167,28 @@ exclude_lines = [
 ]
 
 [tool.ruff]
-# UP006: Minimum Python 3.9
-# UP007, UP038: Minimum Python 3.10
-ignore = ['N818', 'UP006', 'UP007', 'UP038']
-select = ['E', 'F', 'I', 'N', 'W', 'UP']
+ignore = [
+    "N818",
+    "UP006",
+    "UP007",
+    "UP038",
+]
+select = [
+    "E",
+    "F",
+    "I",
+    "N",
+    "W",
+    "UP",
+]
 line-length = 79
 
 [tool.ruff.isort]
-known-first-party = ["cryptography", "cryptography_vectors", "tests"]
+known-first-party = [
+    "cryptography",
+    "cryptography_vectors",
+    "tests",
+]
 
 [tool.check-sdist]
 git-only = [
