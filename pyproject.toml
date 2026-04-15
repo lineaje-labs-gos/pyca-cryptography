@@ -1,29 +1,23 @@
 [build-system]
-# These requirements must be kept sync with the requirements in
-# ./.github/requirements/build-requirements.{in,txt}
 requires = [
     "maturin>=1.9.4,<2",
-
-    # Must be kept in sync with `project.dependencies`
     "cffi>=1.14; platform_python_implementation != 'PyPy' and python_version == '3.8'",
     "cffi>=2.0.0; platform_python_implementation != 'PyPy' and python_version >= '3.9'",
-    # Used by cffi (which import distutils, and in Python 3.12, distutils has
-    # been removed from the stdlib, but installing setuptools puts it back) as
-    # well as our build.rs for the rust/cffi bridge.
     "setuptools!=74.0.0,!=74.1.0,!=74.1.1,!=74.1.2",
 ]
 build-backend = "maturin"
 
 [project]
 name = "cryptography"
-version = "46.0.3"
-authors = [
-    { name = "The Python Cryptographic Authority and individual contributors", email = "cryptography-dev@python.org" },
-]
+version = "46.0.3+lineaje.1"
 description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
 readme = "README.rst"
 license = "Apache-2.0 OR BSD-3-Clause"
-license-files = [ "LICENSE", "LICENSE.APACHE", "LICENSE.BSD" ]
+license-files = [
+    "LICENSE",
+    "LICENSE.APACHE",
+    "LICENSE.BSD",
+]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
@@ -32,7 +26,7 @@ classifiers = [
     "Operating System :: POSIX",
     "Operating System :: POSIX :: BSD",
     "Operating System :: POSIX :: Linux",
-    'Operating System :: Microsoft :: Windows',
+    "Operating System :: Microsoft :: Windows",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
@@ -50,12 +44,17 @@ classifiers = [
 ]
 requires-python = ">=3.8,!=3.9.0,!=3.9.1"
 dependencies = [
-    # Must be kept in sync with `build-system.requires`
     "cffi>=1.14; platform_python_implementation != 'PyPy' and python_version == '3.8'",
     "cffi>=2.0.0; platform_python_implementation != 'PyPy' and python_version >= '3.9'",
-    # Must be kept in sync with ./.github/requirements/build-requirements.{in,txt}
     "typing-extensions>=4.13.2; python_version < '3.11'",
 ]
+maintainers = [
+    { name = "Lineaje DepFixer", email = "221268890+Lineaje-DepFixer@users.noreply.github.com" },
+]
+
+[[project.authors]]
+name = "The Python Cryptographic Authority and individual contributors"
+email = "cryptography-dev@python.org"
 
 [project.urls]
 homepage = "https://github.com/pyca/cryptography"
@@ -63,12 +62,17 @@ documentation = "https://cryptography.io/"
 source = "https://github.com/pyca/cryptography/"
 issues = "https://github.com/pyca/cryptography/issues"
 changelog = "https://cryptography.io/en/latest/changelog/"
+Homepage = "https://github.com/lineaje-labs-gos/pyca-cryptography"
+Repository = "https://github.com/lineaje-labs-gos/pyca-cryptography"
+Tracker = "https://github.com/lineaje-labs-gos/pyca-cryptography/issues"
 
 [project.optional-dependencies]
-ssh = ["bcrypt >=3.1.5"]
-
-# All the following are used for our own testing.
-nox = ["nox[uv] >=2024.04.15"]
+ssh = [
+    "bcrypt >=3.1.5",
+]
+nox = [
+    "nox[uv] >=2024.04.15",
+]
 test = [
     "cryptography_vectors==46.0.3",
     "pytest >=7.4.0",
@@ -78,7 +82,9 @@ test = [
     "pretend >=0.7",
     "certifi >=2024",
 ]
-test-randomorder = ["pytest-randomly"]
+test-randomorder = [
+    "pytest-randomly",
+]
 docs = [
     "sphinx >=5.3.0",
     "sphinx-rtd-theme >=3.0.0",
@@ -89,8 +95,9 @@ docstest = [
     "readme-renderer >=30.0",
     "sphinxcontrib-spelling >=7.3.1",
 ]
-sdist = ["build >=1.0.0"]
-# `click` included because its needed to type check `release.py`
+sdist = [
+    "build >=1.0.0",
+]
 pep8test = [
     "ruff >=0.11.11",
     "mypy >=1.14",
@@ -100,7 +107,9 @@ pep8test = [
 
 [tool.maturin]
 python-source = "src"
-python-packages = ["cryptography"]
+python-packages = [
+    "cryptography",
+]
 manifest-path = "src/rust/Cargo.toml"
 module-name = "cryptography.hazmat.bindings._rust"
 locked = true
@@ -108,19 +117,15 @@ sdist-generator = "git"
 include = [
     "CHANGELOG.rst",
     "CONTRIBUTING.rst",
-
     "docs/**/*",
-
     { path = "src/_cffi_src/**/*.py", format = "sdist" },
     { path = "src/_cffi_src/**/*.c", format = "sdist" },
     { path = "src/_cffi_src/**/*.h", format = "sdist" },
-
     { path = "Cargo.toml", format = "sdist" },
     { path = "Cargo.lock", format = "sdist" },
     { path = "src/rust/**/Cargo.toml", format = "sdist" },
     { path = "src/rust/**/Cargo.lock", format = "sdist" },
     { path = "src/rust/**/*.rs", format = "sdist" },
-
     "tests/**/*.py",
 ]
 exclude = [
@@ -152,13 +157,18 @@ strict_equality = true
 strict_bytes = true
 
 [[tool.mypy.overrides]]
-module = ["pretend"]
+module = [
+    "pretend",
+]
 ignore_missing_imports = true
 
 [tool.coverage.run]
 branch = true
 relative_files = true
-source = ["cryptography", "tests/"]
+source = [
+    "cryptography",
+    "tests/",
+]
 
 [tool.coverage.paths]
 source = [
@@ -167,7 +177,10 @@ source = [
     "*.nox\\*\\Lib\\site-packages\\cryptography",
     "*.nox/pypy/site-packages/cryptography",
 ]
-tests = ["tests/", "*tests\\"]
+tests = [
+    "tests/",
+    "*tests\\",
+]
 
 [tool.coverage.report]
 exclude_lines = [
@@ -182,14 +195,29 @@ show_contexts = true
 [tool.ruff]
 line-length = 79
 
-lint.ignore = ['N818']
-lint.select = ['E', 'F', 'I', 'N', 'W', 'UP', 'RUF']
+[tool.ruff.lint]
+ignore = [
+    "N818",
+]
+select = [
+    "E",
+    "F",
+    "I",
+    "N",
+    "W",
+    "UP",
+    "RUF",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = [
+    "cryptography",
+    "cryptography_vectors",
+    "tests",
+]
 
 [tool.ruff.per-file-target-version]
 ".github/bin/merge_rust_coverage.py" = "py313"
-
-[tool.ruff.lint.isort]
-known-first-party = ["cryptography", "cryptography_vectors", "tests"]
 
 [tool.check-sdist]
 git-only = [
