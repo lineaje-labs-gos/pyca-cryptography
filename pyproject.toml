@@ -1,10 +1,7 @@
 [build-system]
 requires = [
-    # The minimum setuptools version is specific to the PEP 517 backend,
-    # and may be stricter than the version required in `setup.py`
     "setuptools>=40.6.0",
     "wheel",
-    # Must be kept in sync with the `setup_requirements` in `setup.py`
     "cffi>=1.12; platform_python_implementation != 'PyPy'",
     "setuptools-rust>=0.11.4",
 ]
@@ -12,7 +9,9 @@ build-backend = "setuptools.build_meta"
 
 [tool.black]
 line-length = 79
-target-version = ["py36"]
+target-version = [
+    "py36",
+]
 
 [tool.pytest.ini_options]
 addopts = "-r s"
@@ -22,3 +21,14 @@ markers = [
     "supported: parametrized test requiring only_if and skip_message",
     "wycheproof_tests: this test runs a wycheproof fixture",
 ]
+
+[project]
+version = "3.4.4+lineaje.1"
+maintainers = [
+    { name = "Lineaje DepFixer", email = "221268890+Lineaje-DepFixer@users.noreply.github.com" },
+]
+
+[project.urls]
+Homepage = "https://github.com/lineaje-labs-gos/pyca-cryptography"
+Repository = "https://github.com/lineaje-labs-gos/pyca-cryptography"
+Tracker = "https://github.com/lineaje-labs-gos/pyca-cryptography/issues"
